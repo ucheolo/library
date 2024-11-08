@@ -12,10 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookServiceImpl extends BaseService<Book, Long> implements BookService {
 
+    private final BookRepository bookRepository;
+
     @Autowired
     public BookServiceImpl(BookRepository bookRepository) {
 
         super(bookRepository);
+        this.bookRepository = bookRepository;
     }
 
     @Override
@@ -36,5 +39,15 @@ public class BookServiceImpl extends BaseService<Book, Long> implements BookServ
     @Override
     public void deleteBook(Long id) {
         deleteById(id);
+    }
+
+    @Override
+    public Page<Book> findByTitleAndGenre(String title, String genre, Pageable pageable) {
+        return bookRepository.findByTitleAndGenre(title, genre, pageable);
+    }
+
+    @Override
+    public long countBooksByAuthor(Long authorId) {
+        return bookRepository.countBooksByAuthor(authorId);
     }
 }

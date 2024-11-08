@@ -9,4 +9,6 @@ public interface BookService {
     Book createBook(Book book);
     Page<Book> findAll(Pageable pageable);
     void deleteBook(Long id);
+    Page<Book> findByTitleAndGenre(String title, String genre, Pageable pageable);
+    long countBooksByAuthor(Long authorId);
 }

@@ -53,4 +53,21 @@ public class BookController {
         bookService.deleteBook(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Book>> searchBooksByTitleAndGenre(
+            @RequestParam String title,
+            @RequestParam String genre,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<Book> books = bookService.findByTitleAndGenre(title, genre, PageRequest.of(page, size));
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @GetMapping("/author/{authorId}/count")
+    public ResponseEntity<Long> countBooksByAuthor(@PathVariable Long authorId) {
+        long count = bookService.countBooksByAuthor(authorId);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 }
