@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/books")
 public class BookController {
 
+    /// @Service 어노테이션 덕분에 BookServiceImpl이 BookService 타입의 빈으로 등록되고,
+    /// 이를 통해 BookService 인터페이스를 사용하는 곳에
+    /// BookServiceImpl 구현체가 자동으로 주입됩니다.
     private final BookService bookService;
 
     @Autowired
